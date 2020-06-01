@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, FlatList } from "react-native";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { CATEGORIES } from "../../__mocks__/categories";
+import CustomHeaderButton from "../components/HeaderButton";
 import CategoryGridTile from "../components/CategoryGridTile";
 
 const Categories = (props) => {
@@ -44,4 +46,21 @@ const styles = StyleSheet.create({
   },
 });
 
+Categories.navigationOptions = (navData) => {
+  return {
+    headerLeft: () => {
+      return (
+        <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+          <Item
+            title="Menu"
+            iconName="ios-menu"
+            onPress={() => {
+              navData.navigation.toggleDrawer();
+            }}
+          ></Item>
+        </HeaderButtons>
+      );
+    },
+  };
+};
 export default Categories;
