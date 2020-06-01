@@ -7,7 +7,7 @@ import {
   Platform,
   TouchableNativeFeedback,
 } from "react-native";
-
+import { PRIMARY_FONT_BOLD } from "../styles/variables";
 const CategoryGridTile = (props) => {
   let TouchableComponent = TouchableOpacity;
   if (Platform.OS === "android" && Platform.Version >= 21) {
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   title: {
-    fontFamily: "open-sans-bold",
+    fontFamily: PRIMARY_FONT_BOLD,
     fontSize: 12,
     textAlign: "right",
   },

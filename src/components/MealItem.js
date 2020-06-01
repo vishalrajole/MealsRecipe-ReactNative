@@ -8,6 +8,8 @@ import {
   TouchableNativeFeedback,
   ImageBackground,
 } from "react-native";
+import CustomText from "./CustomText";
+import { PRIMARY_FONT_BOLD } from "../styles/variables";
 
 const MealItem = (props) => {
   let TouchableComponent = TouchableOpacity;
@@ -31,9 +33,9 @@ const MealItem = (props) => {
             </ImageBackground>
           </View>
           <View style={{ ...styles.mealRow, ...styles.mealDetails }}>
-            <Text>{props.duration}m</Text>
-            <Text>{props.complexity.toUpperCase()}</Text>
-            <Text>{props.affordability.toUpperCase()}</Text>
+            <CustomText>{props.duration}m</CustomText>
+            <CustomText>{props.complexity.toUpperCase()}</CustomText>
+            <CustomText>{props.affordability.toUpperCase()}</CustomText>
           </View>
         </View>
       </TouchableComponent>
@@ -48,7 +50,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   title: {
-    fontFamily: "open-sans-bold",
+    fontFamily: PRIMARY_FONT_BOLD,
     fontSize: 16,
     color: "#fff",
     textAlign: "center",

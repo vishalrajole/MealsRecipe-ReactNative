@@ -12,7 +12,6 @@ const Favorites = (props) => {
   const favoriteMeals = MEALS.filter((meal) => {
     return meal.id === "m1" || meal.id === "m2";
   });
-
   return <MealList meals={favoriteMeals} navigation={props.navigation} />;
 };
 

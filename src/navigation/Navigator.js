@@ -1,5 +1,5 @@
 import React from "react";
-import { Platform } from "react-native";
+import { Platform, Text } from "react-native";
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
@@ -12,16 +12,22 @@ import MealDetails from "../views/MealDetails";
 import Favorites from "../views/Favorites";
 import Filters from "../views/Filters";
 import COLORS from "../styles/colors";
+import { PRIMARY_FONT, PRIMARY_FONT_BOLD } from "../styles/variables";
 
-const defaultOptions = {
-  defaultNavigationOptions: {
-    headerStyle: {
-      backgroundColor: Platform.OS === "android" ? COLORS.primaryColor : "",
-    },
-    headerTintColor: Platform.OS === "android" ? "white" : COLORS.primaryColor,
+const defaultNavigationOptions = {
+  headerStyle: {
+    backgroundColor: Platform.OS === "android" ? COLORS.primaryColor : "",
   },
+  headerTitleStyle: {
+    fontFamily: PRIMARY_FONT_BOLD,
+  },
+  headerBackTitleStyle: {
+    fontFamily: PRIMARY_FONT,
+  },
+  headerTintColor: Platform.OS === "android" ? "white" : COLORS.primaryColor,
 };
-const MealsNavigation = createStackNavigator(
+
+const MealsNavigationStack = createStackNavigator(
   {
     Categories: {
       screen: Categories,
@@ -35,22 +41,31 @@ const MealsNavigation = createStackNavigator(
   },
   {
     initialRouteName: "Categories",
-    defaultOptions,
+    defaultNavigationOptions,
   }
 );
 
-const FavoritesStack = createStackNavigator(
+const FavoritesNavigationStack = createStackNavigator(
   {
     Favorites: Favorites,
     MealDetails: MealDetails,
   },
-  defaultOptions
+  {
+    defaultNavigationOptions,
+  }
 );
+
 const tabsConfig = {
   Home: {
-    screen: MealsNavigation,
+    screen: MealsNavigationStack,
     navigationOptions: {
       tabBarLabel: "Home",
+      tabBarLabel:
+        Platform.OS === " android" ? (
+          <Text style={{ fontFamily: PRIMARY_FONT_BOLD }}>Home</Text>
+        ) : (
+          "Home"
+        ),
       tabBarIcon: (tabInfo) => {
         return (
           <Ionicons name="ios-restaurant" size={25} color={tabInfo.tintColor} />
@@ -60,10 +75,15 @@ const tabsConfig = {
     },
   },
   Favorites: {
-    screen: FavoritesStack,
+    screen: FavoritesNavigationStack,
     navigationOptions: {
       headerTitle: "Favorites",
-      tabBarLabel: "Favorites",
+      tabBarLabel:
+        Platform.OS === " android" ? (
+          <Text style={{ fontFamily: PRIMARY_FONT_BOLD }}>Favorites</Text>
+        ) : (
+          "Favorites"
+        ),
       tabBarIcon: (tabInfo) => {
         return <Ionicons name="ios-star" size={25} color={tabInfo.tintColor} />;
       },
@@ -72,29 +92,55 @@ const tabsConfig = {
   },
 };
 
-const TabNavigator =
+const TabNavigationStack =
   Platform.OS === "android"
     ? createMaterialBottomTabNavigator(tabsConfig, {
         activeColor: "#fff",
         shifting: true,
+        barStyle: {
+          backgroundColor: COLORS.primaryColor,
+        },
       })
     : createBottomTabNavigator(tabsConfig, {
         tabBarOptions: {
+          labelStyle: {
+            fontFamily: PRIMARY_FONT,
+          },
           activeTintColor: COLORS.accentColor,
         },
       });
 
-const filterStack = createStackNavigator({
-  Filters: {
-    screen: Filters,
-    navigationOptions: {
-      headerTitle: "Filters",
+const FilterNavigationStack = createStackNavigator(
+  {
+    Filters: {
+      screen: Filters,
+      navigationOptions: {
+        headerTitle: "Filters",
+      },
     },
   },
-});
+  {
+    defaultNavigationOptions,
+  }
+);
 
-const drawerNavigator = createDrawerNavigator({
-  Favorites: TabNavigator,
-  Filters: filterStack,
-});
-export default createAppContainer(drawerNavigator);
+const DrawerNavigationStack = createDrawerNavigator(
+  {
+    Favorites: {
+      screen: TabNavigationStack,
+      navigationOptions: {
+        drawerLabel: "Meals",
+      },
+    },
+    Filters: FilterNavigationStack,
+  },
+  {
+    contentOptions: {
+      activeTintColor: COLORS.accentColor,
+      labelStyle: {
+        fontFamily: PRIMARY_FONT_BOLD,
+      },
+    },
+  }
+);
+export default createAppContainer(DrawerNavigationStack);
