@@ -5,10 +5,17 @@ import { MEALS } from "../../__mocks__/meals";
 import CustomHeaderButton from "../components/HeaderButton";
 import CustomText from "../components/CustomText";
 
+const ListItem = (props) => {
+  return (
+    <View style={styles.listItem}>
+      <CustomText>{props.children}</CustomText>
+    </View>
+  );
+};
 const MealDetails = (props) => {
   const selectedMealId = props.navigation.getParam("mealId");
   const selectedMeal = MEALS.find((meal) => meal.id === selectedMealId);
-
+  console.log("selected", selectedMeal);
   return (
     <ScrollView>
       <Image source={{ uri: selectedMeal.imageUrl }} style={styles.image} />
@@ -17,10 +24,16 @@ const MealDetails = (props) => {
         <CustomText>{selectedMeal.complexity.toUpperCase()}</CustomText>
         <CustomText>{selectedMeal.affordability.toUpperCase()}</CustomText>
       </View>
-      <Text>Ingrediants</Text>
-      <Text>List of Ingrediants</Text>
-      <Text>Steps</Text>
-      <Text>List of step</Text>
+      <Text style={styles.title}>Ingrediants</Text>
+      <Text style={styles.subTitle}>List of Ingrediants</Text>
+      {selectedMeal.ingredients.map((ingredient) => {
+        return <ListItem key={ingredient}>{ingredient}</ListItem>;
+      })}
+      <Text style={styles.title}>Steps</Text>
+      <Text style={styles.subTitle}>List of step</Text>
+      {selectedMeal.steps.map((step) => {
+        return <ListItem key={step}>{step}</ListItem>;
+      })}
     </ScrollView>
   );
 };
@@ -34,6 +47,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 15,
     justifyContent: "space-around",
+  },
+  title: {
+    fontSize: 22,
+    textAlign: "center",
+    fontFamily: "open-sans",
+  },
+  subTitle: {
+    marginLeft: 10,
+  },
+  listItem: {
+    marginVertical: 5,
+    marginHorizontal: 20,
+    padding: 5,
+    borderColor: "#ccc",
   },
 });
 
