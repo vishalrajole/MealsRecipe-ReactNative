@@ -1,13 +1,13 @@
 import React from "react";
 import { StyleSheet } from "react-native";
+import { useSelector } from "react-redux";
 import { CATEGORIES } from "../../__mocks__/categories";
-import { MEALS } from "../../__mocks__/meals";
 import MealList from "../components/MealList";
 
 const CategoryMeals = (props) => {
   const categoryId = props.navigation.getParam("categoryId");
-
-  const meals = MEALS.filter((meal) => {
+  const availableMeals = useSelector((state) => state.meals.filteredMeals);
+  const meals = availableMeals.filter((meal) => {
     return meal.categoryIds.indexOf(categoryId) >= 0;
   });
 

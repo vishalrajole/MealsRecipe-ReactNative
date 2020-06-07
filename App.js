@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { Provider } from "react-redux";
 import { StyleSheet, Text, View } from "react-native";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import { enableScreens } from "react-native-screens";
 import MealsNavigation from "./src/navigation/Navigator";
-
+import { store } from "./src/store/configure-store";
 enableScreens();
 
 const fetchFonts = () => {
@@ -27,9 +28,9 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
+    <Provider store={store}>
       <MealsNavigation />
-    </View>
+    </Provider>
   );
 }
 
