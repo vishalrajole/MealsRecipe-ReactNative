@@ -27,7 +27,6 @@ const MealDetails = (props) => {
   const dispatch = useDispatch();
 
   const toggleFavoriteHandler = useCallback(() => {
-    console.log("dispatching toggleFavorite: ", selectedMeal.id);
     dispatch(toggleFavorite(selectedMealId));
   }, [dispatch, selectedMealId]);
 

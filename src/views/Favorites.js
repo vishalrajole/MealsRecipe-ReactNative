@@ -8,7 +8,6 @@ import CustomHeaderButton from "../components/HeaderButton";
 
 const Favorites = (props) => {
   const favoriteMeals = useSelector((state) => state.meals.favoriteMeals);
-  console.log("favoriteMeals: ", favoriteMeals.length);
   if (favoriteMeals.length === 0) {
     return (
       <View style={styles.emptyFavorite}>
