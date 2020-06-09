@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Provider } from "react-redux";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import { enableScreens } from "react-native-screens";

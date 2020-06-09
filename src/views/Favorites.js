@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { StyleSheet, View } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useSelector } from "react-redux";
 import MealList from "../components/MealList";
@@ -35,6 +35,7 @@ Favorites.navigationOptions = (navData) => {
     },
   };
 };
+
 const styles = StyleSheet.create({
   emptyFavorite: {
     flex: 1,

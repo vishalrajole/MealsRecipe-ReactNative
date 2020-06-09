@@ -10,6 +10,7 @@ const MealList = (props) => {
     const isMealFavorite = favoriteMeals.find(
       (meal) => meal.id === data.item.id
     );
+
     return (
       <MealItem
         title={data.item.title}
